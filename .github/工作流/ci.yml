@@ -1,6 +1,8 @@
 name: Github Actions
 on: [push, pull_request]
-
+permissions:
+  contents: write
+  
 jobs:
   # TODO: Enable package:media_kit tests on Windows
 
