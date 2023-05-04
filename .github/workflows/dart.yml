@@ -1,0 +1,101 @@
+name: Github Actions
+on: [push, pull_request]
+permissions:
+  contents: write
+  
+jobs:
+  # TODO: Enable package:media_kit tests on Windows
+
+  # media_kit-tests-windows:
+  #   name: package:media_kit tests (Windows)
+  #   runs-on: windows-latest
+  #   defaults:
+  #     run:
+  #       working-directory: media_kit
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         submodules: "true"
+  #     - uses: subosito/flutter-action@v1
+  #       with:
+  #         channel: "stable"
+  #     - run: dart pub get
+  #     - run: dart test
+
+ # media_kit-tests-linux:
+ #   name: package:media_kit tests (Linux)
+ #   runs-on: ubuntu-latest
+ #   defaults:
+ #     run:
+ #       working-directory: media_kit
+ #   steps:
+ #     - uses: actions/checkout@v2
+ #       with:
+ #         submodules: "true"
+ #     - run: sudo apt-get update
+ #     - run: sudo apt-get install clang cmake ninja-build pkg-config libgtk-3-dev mpv libmpv-dev dpkg-dev p7zip-full p7zip-rar
+ #     - uses: subosito/flutter-action@v1
+ #      with:
+ #         channel: "stable"
+ #     - run: dart pub get
+ #- run: dart test
+
+  # TODO: Enable package:media_kit tests on macOS
+
+  # media_kit-tests-macos:
+  #   name: package:media_kit tests (macOS)
+  #   runs-on: macos-latest
+  #   defaults:
+  #     run:
+  #       working-directory: media_kit
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         submodules: "true"
+  #     - uses: subosito/flutter-action@v1
+  #       with:
+  #         channel: "stable"
+  #     - run: dart pub get
+  #     - run: dart test
+
+  windows:
+    name: Windows
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: media_kit_test
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: "true"
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: "stable"
+      - run: flutter pub get
+      - run: flutter build windows --verbose
+      - run: cmake -E tar "cfv" "media_kit_test_win32_x64.7z" --format=7zip "build\windows\runner\Release"
+      - uses: actions/upload-artifact@v1
+        with:
+          name: media_kit_test_win32_x64
+          path: media_kit_test/media_kit_test_win32_x64.7z
+
+  optional-libs-windows:
+    name: Windows (optional libs)
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: media_kit_test
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: "true"
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: "stable"
+      - name: Remove `media_kit_libs_*` dependencies
+        run: |
+          "C:\Program Files\Git\usr\bin\sed.exe" -i "/media_kit_libs_/d" pubspec.yaml
+          type pubspec.yaml
+        shell: cmd
+      - run: flutter pub get
+      - run: flutter build windows --verbose
