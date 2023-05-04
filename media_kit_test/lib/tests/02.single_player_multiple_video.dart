@@ -124,16 +124,6 @@ class _SinglePlayerMultipleVideoScreenState
                                     ],
                                   ),
                                 ),
-                                Expanded(
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                          child: Video(controller: controller)),
-                                      Expanded(
-                                          child: Video(controller: controller)),
-                                    ],
-                                  ),
-                                ),
                               ],
                             ),
                           ),
@@ -161,14 +151,6 @@ class _SinglePlayerMultipleVideoScreenState
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Expanded(child: Video(controller: controller)),
-                              Expanded(child: Video(controller: controller)),
-                            ],
-                          ),
-                        ),
                         Expanded(
                           child: Row(
                             children: [
