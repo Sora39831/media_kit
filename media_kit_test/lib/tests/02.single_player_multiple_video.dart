@@ -93,6 +93,8 @@ class _SinglePlayerMultipleVideoScreenState
             onPressed: () => showURIPicker(context, player),
             child: const Icon(Icons.link),
           ),
+          const SizedBox(width: 16.0),
+          FullscreenButton(controller),
         ],
       ),
       body: SizedBox.expand(
