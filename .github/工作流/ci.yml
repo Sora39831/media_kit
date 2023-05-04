@@ -78,14 +78,6 @@ jobs:
         with:
           name: media_kit_test_win32_x64
           path: media_kit_test/media_kit_test_win32_x64.7z
-      - uses: softprops/action-gh-release@v1
-        if: github.ref == 'refs/heads/main'
-        with:
-          draft: true
-          prerelease: false
-          tag_name: "vnext"
-          files: |
-            media_kit_test/media_kit_test_win32_x64.7z
 
   optional-libs-windows:
     name: Windows (optional libs)
