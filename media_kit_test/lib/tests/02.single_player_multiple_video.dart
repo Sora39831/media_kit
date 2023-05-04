@@ -171,6 +171,14 @@ class _SinglePlayerMultipleVideoScreenState
                 ],
               ),
           ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: ElevatedButton(
+              onPressed: () {},
+              child: Text('全屏'),
+            ),
+          ),
         ],
       ),
     );
